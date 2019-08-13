@@ -2,7 +2,9 @@ package com.example.myapplication.moodtracker;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.IntentFilter;
 import android.gesture.Gesture;
+import android.media.Image;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,19 +17,50 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+
 public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
     GestureDetector gestureDetector;
+
+    ImageView myImageView;
+
+
+    public static final int[] tableauImg = new int[]{
+            R.drawable.smiley_sad,
+            R.drawable.smiley_disappointed,
+            R.drawable.smiley_normal,
+            R.drawable.smiley_happy,
+            R.drawable.smiley_super_happy,
+
+
+
+    };
+
+    public static final int[] tableauFnd = new int[]{
+
+            <color name="faded_red">#ffde3c50</color>
+    <color name="warm_grey">#ff9b9b9b</color>
+    <color name="cornflower_blue_65">#a5468ad9</color>
+    <color name="light_sage">#ffb8e986</color>
+    <color name="banana_yellow">#fff9ec4f</color>
+    };
+
+
+
+
+    private int Index;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        gestureDetector = new GestureDetector(MainActivity.this, MainActivity.this);
+
+        Index = 3;
 
 
-
-        ImageView myImageView = findViewById(R.id.my_image_view);
-        myImageView.setImageResource(R.drawable.smiley_super_happy);
+        myImageView = findViewById(R.id.my_image_view);
+        myImageView.setImageResource(tableauImg[Index]);
 
         ImageButton imageButton1 = findViewById(R.id.imageButton1);
         imageButton1.setImageResource(R.drawable.ic_note_add_black);
@@ -61,34 +94,36 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     }
 
 
-        gestureDetector = new GestureDetector(MainActivity.this, MainActivity.this);
-    }
-
-
     @Override
     public boolean onFling(MotionEvent motionEvent1, MotionEvent motionEvent2, float X, float Y) {
         if (motionEvent1.getY() - motionEvent2.getY() > 50) {
             Toast.makeText(MainActivity.this, "You Swiped up!", Toast.LENGTH_LONG).show();
+            if (Index > 0 )
+            Index = Index - 1;
+            myImageView.setImageResource(tableauImg[Index]);
+
+
             return true;
+
         }
 
         if (motionEvent2.getY() - motionEvent1.getY() > 50) {
             Toast.makeText(MainActivity.this, "You Swiped Down!", Toast.LENGTH_LONG).show();
-            return true;
-        }
-
-        if (motionEvent1.getX() - motionEvent2.getX() > 50) {
-            Toast.makeText(MainActivity.this, "You Swiped Left!", Toast.LENGTH_LONG).show();
-            return true;
-        }
-
-        if (motionEvent2.getX() - motionEvent1.getX() > 50) {
-            Toast.makeText(MainActivity.this, "You Swiped Right!", Toast.LENGTH_LONG).show();
+            if (Index < 4 )
+                Index = Index + 1;
+            myImageView.setImageResource(tableauImg,[Index]);
             return true;
         } else {
+
             return true;
         }
+
+
+
     }
+
+
+
 
     @Override
     public void onLongPress(MotionEvent arg0) {
