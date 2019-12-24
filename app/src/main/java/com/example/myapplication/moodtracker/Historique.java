@@ -9,6 +9,16 @@ public class Historique extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historique);
+
+
+        //gSon
+
+        Gson gson = new Gson();
+        String json = mPrefs.getString("MyObject", "");
+        MyObject obj = gson.fromJson(json, MyObject.class);
+
+
+
     }
 }
 

@@ -122,6 +122,12 @@ public static final String text = "text";
                 editor.putString(text,mText.getText().toString());
                 editor.apply();
 
+                SharedPreferences.Editor prefsEditor = mPrefs.edit();
+                Gson gson = new Gson();
+                String json = gson.toJson(mEditText);
+                prefsEditor.putString("MyObject", json);
+                prefsEditor.commit();
+
             }
         });
 
